@@ -29,35 +29,49 @@ export function activate(context: vscode.ExtensionContext) {
 async function executeImplicitIndent(editor: vscode.TextEditor) {
 	// Check indentation in each line
 	const lineCount = editor.document.lineCount;
-
+	
+	// Initialize an array of tuples
+	const indentTuples: [vscode.Position, string][] = [];
+	
 	for (let i = 0; i < lineCount; i++) {
-		indentLine(editor, i);
+		let line = editor.document.lineAt(i);
+		// Apply implicit indentation only on empty or whitespace-only lines
+		if (line.text === "") {
+			indentTuples.push(
+				computeIndentation(editor.document, line.range.end, i)
+			);
+		}
 	}
+	
+	editor.edit((edit) => {
+		indentTuples.forEach((tuple) => {
+			edit.insert(tuple[0], tuple[1]);
+		});
+	});
 }
 
 
-function indentLine(editor: vscode.TextEditor, lineNum: number) {
-	let line = editor.document.lineAt(lineNum);
-	// Apply implicit indentation only on empty or whitespace-only lines
-	if (line.text === "") {
-		// Find the next line that is not empty or whitespace-only.
-		let nextLineNum = lineNum;
-		var nextLineText;
-		try {
-			nextLineText = editor.document.lineAt(nextLineNum).text;
-			while (/\S/.test(nextLineText) === false) {
-				nextLineNum = nextLineNum + 1;
-				nextLineText = editor.document.lineAt(nextLineNum).text;
-			}
-		} catch (e) {
-			nextLineText = "";
+function computeIndentation(
+	document: vscode.TextDocument,
+	position: vscode.Position,
+	lineNum: number
+): [vscode.Position, string] {
+	// Find the next line that is not empty or whitespace-only.
+	let nextLineNum = lineNum + 1;
+	var nextLineText;
+	try {
+		nextLineText = document.lineAt(nextLineNum).text;
+		while (/\S/.test(nextLineText) === false) {
+			nextLineNum = nextLineNum + 1;
+			nextLineText = document.lineAt(nextLineNum).text;
 		}
-		
-		// Figure out the indentation level of that next line,
-		// and copy it here to the cursor line.
-		const nextLineIndent = nextLineText.match(/^\s*/)![0]!;
-		editor.edit((edit) => {
-			edit.insert(line.range.end, nextLineIndent);
-		});
+	} catch (e) {
+		nextLineText = "";
 	}
+	
+	// Figure out the indentation level of that next line,
+	// and copy it here to the cursor line.
+	const nextLineIndent = nextLineText.match(/^\s*/)![0]!;
+
+	return [position, nextLineIndent];
 }
