@@ -14,8 +14,6 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand(
 		'format-with-implicit-indent.format',
 		async () => {
-			// Display a message box to the user
-			vscode.window.showInformationMessage('Format document with implicit indent!');
 			// Format document with VSCode plugin
 			await vscode.commands.executeCommand("editor.action.formatDocument");
 			// Apply implicit indentation

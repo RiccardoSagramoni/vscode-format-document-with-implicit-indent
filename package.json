@@ -2,11 +2,13 @@
   "name": "format-with-implicit-indent",
   "displayName": "Format with implicit indent",
   "description": "",
+  "publisher": "Riccardo Sagramoni",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.78.0"
   },
   "categories": [
+    "Formatters",
     "Other"
   ],
   "activationEvents": [],
@@ -15,7 +17,7 @@
     "commands": [
       {
         "command": "format-with-implicit-indent.format",
-        "title": "Format document with implicit indent"
+        "title": "Format Document with implicit indent"
       }
     ]
   },
