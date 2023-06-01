@@ -1,26 +1,63 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+
+
+// This method is called when your extension is deactivated
+export function deactivate() { }
+
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
 	console.log('Congratulations, your extension "format-with-implicit-indent" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('format-with-implicit-indent.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from Format with implicit indent!');
-	});
-
+	
+	// Implement command
+	let disposable = vscode.commands.registerCommand(
+		'format-with-implicit-indent.format',
+		async () => {
+			// Display a message box to the user
+			vscode.window.showInformationMessage('Format document with implicit indent!');
+			// Format document with VSCode plugin
+			await vscode.commands.executeCommand("editor.action.formatDocument");
+			// Apply implicit indentation
+			await executeImplicitIndent(vscode.window.activeTextEditor!);
+		});
+	
 	context.subscriptions.push(disposable);
 }
 
-// This method is called when your extension is deactivated
-export function deactivate() {}
+
+async function executeImplicitIndent(editor: vscode.TextEditor) {
+	// Check indentation in each line
+	const lineCount = editor.document.lineCount;
+
+	for (let i = 0; i < lineCount; i++) {
+		indentLine(editor, i);
+	}
+}
+
+
+function indentLine(editor: vscode.TextEditor, lineNum: number) {
+	let line = editor.document.lineAt(lineNum);
+	// Apply implicit indentation only on empty or whitespace-only lines
+	if (line.text === "") {
+		// Find the next line that is not empty or whitespace-only.
+		let nextLineNum = lineNum;
+		var nextLineText;
+		try {
+			nextLineText = editor.document.lineAt(nextLineNum).text;
+			while (/\S/.test(nextLineText) === false) {
+				nextLineNum = nextLineNum + 1;
+				nextLineText = editor.document.lineAt(nextLineNum).text;
+			}
+		} catch (e) {
+			nextLineText = "";
+		}
+		
+		// Figure out the indentation level of that next line,
+		// and copy it here to the cursor line.
+		const nextLineIndent = nextLineText.match(/^\s*/)![0]!;
+		editor.edit((edit) => {
+			edit.insert(line.range.end, nextLineIndent);
+		});
+	}
+}
