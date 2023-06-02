@@ -8,7 +8,7 @@
 ![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
 
 ![stability-alpha](https://img.shields.io/badge/stability-ALPHA-f4d03f.svg?style=for-the-badge)
-[![Licence](https://img.shields.io/github/license/RiccardoSagramoni/vscode-format-document-with-implicit-indent?style=for-the-badge)](./LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](./LICENSE)
 
 </div>
 <br>
