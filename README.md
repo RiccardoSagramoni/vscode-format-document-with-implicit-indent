@@ -17,6 +17,11 @@
 It automatically indent to the correct level every empty lines after formatting the document.
 
 
+## Features
+
+The extension define a new command **Format Document with implicit indent** (`format-with-implicit-indent.format`) which format the current document and apply implicit indentation.
+
+
 ## Why?
 
 This extension aims to solve an issue common to the majority of formatting utilities, i.e. removing the indentation from all the empty lines.
