@@ -3,6 +3,7 @@
   "displayName": "Format with implicit indent",
   "description": "",
   "publisher": "Riccardo Sagramoni",
+  "repository": "https://github.com/RiccardoSagramoni/vscode-format-with-implicit-indent",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.78.0"
