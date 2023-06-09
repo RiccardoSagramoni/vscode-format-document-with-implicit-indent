@@ -29,7 +29,7 @@ This can be a very annoying inconvenience for developers who uses IDEs like VS C
 
 The extension [`implicit-indent`](https://marketplace.visualstudio.com/items?itemName=jemc.vscode-implicit-indent) already solves this issue in a clever way, by automatically adding indentation when cursor moves on empty lines.
 
-My extension tries a different approach, by **automatically adding indentation on all the empty lines of the document after formatting the document**.
+My extension tries a different approach, by **automatically adding indentation to all the empty lines of the document after formatting the document**.
 
 
 ## Installation
@@ -57,7 +57,7 @@ I suggest configuring the IDE with the following setting:
 ```json
 "editor.trimAutoWhitespace": false
 ```
-In this way, the editor will not automatically trim the whitespaces on empty lines (thus making this extension useless XD).
+In this way, the editor will not automatically trim the whitespaces on empty lines (thus making this extension useless).
 
 
 ## Credits
