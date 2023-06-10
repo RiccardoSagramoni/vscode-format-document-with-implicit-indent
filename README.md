@@ -60,6 +60,15 @@ I suggest configuring the IDE with the following setting:
 In this way, the editor will not automatically trim the whitespaces on empty lines (thus making this extension useless).
 
 
+## Roadmap
+- [ ] Optimize indentation algorithm
+- [ ] Prepare project for release on VS Code marketplace
+    - [ ] Documentation
+    - [ ] Configuration
+    - [ ] Reduce minimum required IDE version
+- [ ] Release v1.0.0
+
+
 ## Credits
 
 - [vscode-implicit-indent](https://github.com/jemc/vscode-implicit-indent) for the implicit indentation algorithm.
