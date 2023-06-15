@@ -69,6 +69,6 @@ In this way, the editor will not automatically trim the whitespaces on empty lin
 - [ ] Release v1.0.0
 
 
-## Credits
+## Acknowledgements
 
 - [vscode-implicit-indent](https://github.com/jemc/vscode-implicit-indent) for the implicit indentation algorithm.
